@@ -6,7 +6,7 @@ from .models import *
 from .serializers import *
 
 def clinic(request):
-    template = loader.get_template('landingPage.html')
+    template = loader.get_template('sign_up.html')
     return HttpResponse(template.render())
 
 class UserViewSet(viewsets.ModelViewSet):
