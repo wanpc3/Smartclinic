@@ -4,43 +4,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smartclinic Landing Page</title>
+    <title>Smartclinic - Sign Up</title>
     <script src="{% static 'script.js' %}"></script>
     <link rel="stylesheet" href="{% static 'form.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
 <body>
-
     <div class="wrapper">
-    <h2>Registration</h2>
-    <form action="#">
-      <div class="input-box">
-        <input type="text" placeholder="Enter your name" required>
-      </div>
-      <div class="input-box">
-        <input type="text" placeholder="Enter your email" required>
-      </div>
-
-      <div class="input-box password-input">
-            <input type="password" id="password" placeholder="Create password" required>
-            <i class="fas fa-eye-slash toggle-password" onclick="togglePassword('password')"></i>
-        </div>
+        <h2>Sign Up</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="input-box">
+                <input type="text" name="{{ form.username.name }}" id="{{ form.username.id_for_label }}" 
+                      placeholder="Enter your username" required>
+                {{ form.username.errors }}
+            </div>
+            <div class="input-box">
+                <input type="email" name="{{ form.email.name }}" id="{{ form.email.id_for_label }}" 
+                      placeholder="Enter your email" required>
+                {{ form.email.errors }}
+            </div>
             <div class="input-box password-input">
-            <input type="password" id="confirm-password" placeholder="Confirm password" required>
-        <i class="fas fa-eye-slash toggle-password" onclick="togglePassword('confirm-password')"></i>
-      </div>
-
-      <div class="policy">
-        <input type="checkbox">
-        <h3>I accept all <a href="#">terms & condition</a></h3>
-      </div>
-      <div class="input-box button">
-        <input type="Submit" value="Register Now">
-      </div>
-      <div class="text">
-        <h3>Already have an account? <a href="#">Login now</a></h3>
-      </div>
-    </form>
-  </div>
-
+                <input type="password" name="{{ form.password1.name }}" id="{{ form.password1.id_for_label }}" 
+                      placeholder="Create password" required>
+                <i class="fas fa-eye-slash toggle-password" onclick="togglePassword('{{ form.password1.id_for_label }}')"></i>
+                {{ form.password1.errors }}
+            </div>
+            <div class="input-box password-input">
+                <input type="password" name="{{ form.password2.name }}" id="{{ form.password2.id_for_label }}" 
+                      placeholder="Confirm password" required>
+                <i class="fas fa-eye-slash toggle-password" onclick="togglePassword('{{ form.password2.id_for_label }}')"></i>
+                {{ form.password2.errors }}
+            </div>
+            <div class="policy">
+                <input type="checkbox" required>
+                <h3>I accept all <a href="#">terms & condition</a></h3>
+            </div>
+            <div class="input-box button">
+                <input type="submit" value="Register Now">
+            </div>
+            <div class="text">
+                <h3>Already have an account? <a href="{% url 'sign_in' %}">Login now</a></h3>
+            </div>
+        </form>
+    </div>
 </body>
 </html>

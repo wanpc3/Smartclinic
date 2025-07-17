@@ -26,12 +26,14 @@ body{
   font-size: 22px;
   font-weight: 600;
   color: #333;
+  text-align: center;
 }
 .wrapper h2::before{
   content: '';
   position: absolute;
-  left: 0;
-  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -10px;
   height: 3px;
   width: 28px;
   border-radius: 12px;
@@ -41,11 +43,11 @@ body{
   margin-top: 30px;
 }
 .wrapper form .input-box{
-  height: 52px;
+  height: auto;
   margin: 18px 0;
 }
 form .input-box input{
-  height: 100%;
+  height: 52px;
   width: 100%;
   outline: none;
   padding: 0 15px;
@@ -64,6 +66,7 @@ form .input-box input{
 form .policy{
   display: flex;
   align-items: center;
+  margin: 15px 0;
 }
 form h3{
   color: #707070;
@@ -77,6 +80,9 @@ form h3{
   border: none;
   background: #4070f4;
   cursor: pointer;
+  font-size: 17px;
+  font-weight: 500;
+  transition: all 0.3s ease;
 }
 .input-box.button input:hover{
   background: #0e4bf1;
@@ -92,6 +98,20 @@ form .text h3 a{
 }
 form .text h3 a:hover{
   text-decoration: underline;
+}
+
+/* Placeholder styling */
+::placeholder {
+    color: #999;
+    opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #999;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+    color: #999;
 }
 
 /* Password toggle styles */
@@ -114,4 +134,46 @@ form .text h3 a:hover{
 
 .toggle-password:hover {
     color: #4070f4;
+}
+
+/* Error message styling */
+.errorlist {
+    list-style: none;
+    padding: 0;
+    margin: 5px 0 0 0;
+    color: #ff3860;
+    font-size: 14px;
+}
+
+/* Style for form fields */
+input#id_username, 
+input#id_email, 
+input#id_password1, 
+input#id_password2,
+input#id_password {
+    padding-right: 40px;
+}
+
+/* Checkbox styling */
+input[type="checkbox"] {
+    margin-right: 5px;
+    width: 15px;
+    height: 15px;
+    accent-color: #4070f4;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .wrapper {
+        padding: 20px;
+        margin: 0 15px;
+    }
+    
+    .wrapper h2 {
+        font-size: 20px;
+    }
+    
+    form .input-box input {
+        font-size: 15px;
+    }
 }

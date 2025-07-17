@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'clinic',
 ]
 
+AUTH_USER_MODEL = 'clinic.User'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

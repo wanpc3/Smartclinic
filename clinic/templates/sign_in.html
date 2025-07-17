@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smartclinic - Sign In</title>
+    <script src="{% static 'script.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'form.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="wrapper">
+        <h2>Sign In</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="input-box">
+                <input type="text" name="{{ form.username.name }}" id="{{ form.username.id_for_label }}" 
+                      placeholder="Enter your email" required>
+                {{ form.username.errors }}
+            </div>
+            <div class="input-box password-input">
+                <input type="password" name="{{ form.password.name }}" id="{{ form.password.id_for_label }}" 
+                      placeholder="Enter your password" required>
+                <i class="fas fa-eye-slash toggle-password" onclick="togglePassword('{{ form.password.id_for_label }}')"></i>
+                {{ form.password.errors }}
+            </div>
+            <div class="input-box button">
+                <input type="submit" value="Login Now">
+            </div>
+            <div class="text">
+                <h3>Don't have an account? <a href="{% url 'sign_up' %}">Sign Up now</a></h3>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smartclinic - Dashboard</title>
+    <script src="{% static 'script.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'dashboard.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+    <body>
+
+        <h2>Welcome, {{ request.user.username }}!</h2>
+
+        <!--Navigation Bar-->
+        <div class="navbar">
+            <div class="logo">
+                <h2>Smartclinic</h2>
+            </div>
+            <ul>
+                <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                <li><a href="#">medicines</a></li>
+                <li>
+                    <form action="{% url 'sign_out' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="sign_out-btn">Sign Out</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+
+        <div class="content">
+            <h3>Your Medicines</h3>
+            <p>Here is a list of your medicines:</p>
+        </div>
+
+        <div class="add-medicine">
+            <a href="{% url 'add_medicine' %}" class="add-btn">Add Medicine</a>
+        </div>
+        
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>Medicine Id</th>
+                    <th>Name</th>
+                    <th>dosage</th>
+                    <th>frequency</th>
+                    <th>Expiry Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for med in medicines %}
+                    <tr>
+                    <td>{{ med.medicine.name }}</td>
+                    <td>{{ med.dosage }}</td>
+                    <td>{{ med.frequency }}</td>
+                    <td>{{ med.end_date }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+
+    </body>
+</html>
