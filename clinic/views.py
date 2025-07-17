@@ -5,7 +5,7 @@ from django.template import loader
 from rest_framework import viewsets
 from .models import *
 from .serializers import *
-from .forms import SignUpForm, SignInForm
+from .forms import SignUpForm, SignInForm, MedicineForm, UserMedicineForm
 
 def sign_up(request):
     if request.method == 'POST':
@@ -44,22 +44,23 @@ def dashboard(request):
 
 def add_medicine(request):
     if request.method == 'POST':
-        medicine_name = request.POST.get('medicine_name')
-        dosage = request.POST.get('dosage')
-        frequency = request.POST.get('frequency')
-        end_date = request.POST.get('end_date')
-        
-        medicine = Medicine.objects.create(
-            name=medicine_name,
-            dosage=dosage,
-            frequency=frequency,
-            end_date=end_date
-        )
-        
-        UserMedicine.objects.create(user=request.user, medicine=medicine)
-        return redirect('dashboard')
-    
-    return render(request, 'add_medicine.html')
+        med_form = MedicineForm(request.POST)
+        user_med_form = UserMedicineForm(request.POST)
+        if med_form.is_valid() and user_med_form.is_valid():
+            medicine = med_form.save()
+            user_medicine = user_med_form.save(commit=False)
+            user_medicine.user = request.user
+            user_medicine.medicine = medicine
+            user_medicine.save()
+            return redirect('dashboard')
+    else:
+        med_form = MedicineForm()
+        user_med_form = UserMedicineForm()
+
+    return render(request, 'add_medicine.html', {
+        'med_form': med_form,
+        'user_med_form': user_med_form
+    })
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()

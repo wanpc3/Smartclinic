@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from .models import User
+from .models import User, Medicine, UserMedicine
 
 class SignUpForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
@@ -23,3 +23,14 @@ class SignInForm(AuthenticationForm):
         self.fields['password'].widget.attrs.update({
             'placeholder': 'Enter your password'
         })
+
+class MedicineForm(forms.ModelForm):
+    class Meta:
+        model = Medicine
+        fields = ['name', 'description', 'expiry_date', 'price']
+        
+class UserMedicineForm(forms.ModelForm):
+    class Meta:
+        model = UserMedicine
+        #fields = ['medicine', 'dosage', 'frequency', 'start_date', 'end_date', 'instructions']
+        exclude = ['user', 'medicine']

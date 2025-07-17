@@ -1,18 +1,25 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smartclinic - Add Medicine</title>
-
+    <title>Add Medicine</title>
 </head>
-    <body>
+<body>
+    <h2>Add New Medicine</h2>
 
-        <h2>Add New Medicine</h2>
-        
-        <div class="add-medicine">
-            <a href="{% url 'dashboard' %}" class="back-btn">Back to Dashboard</a>
-        </div>       
+    <div class="add-medicine">
+        <a href="{% url 'dashboard' %}" class="back-btn">Back to Dashboard</a>
+    </div>
 
-    </body>
+    <form method="post">
+        {% csrf_token %}
+        <h3>Medicine Info</h3>
+        {{ med_form.as_p }}
+
+        <h3>User Medicine Info</h3>
+        {{ user_med_form.as_p }}
+
+        <button type="submit">Add</button>
+    </form>
+</body>
 </html>
