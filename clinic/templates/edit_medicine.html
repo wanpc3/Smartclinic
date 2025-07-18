@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Medicine</title>
+</head>
+<body>
+    <h2>Edit Medicine Details</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        <h3>Medicine Info</h3>
+        {{ med_form.as_p }}
+
+        <h3>User Medicine Info</h3>
+        {{ user_med_form.as_p }}
+
+        <button type="submit">Save Changes</button>
+    </form>
+
+    <div class="back-button">
+        <a href="{% url 'view_user_medicine' user_med_form.instance.pk %}">Back to Medicines</a>
+    </div>
+</body>
+</html>

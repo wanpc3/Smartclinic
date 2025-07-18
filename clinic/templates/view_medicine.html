@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Medicine</title>
+</head>
+<body>
+    <h2>Medicine Details</h2>
+
+    <div class="back-button">
+        <a href="{% url 'dashboard' %}">← Back to Dashboard</a>
+    </div>
+
+    <div class="medicine-details">
+        <h3>{{ user_medicine.medicine.name }}</h3>
+        <p><strong>Description:</strong> {{ user_medicine.medicine.description }}</p>
+        <p><strong>Dosage:</strong> {{ user_medicine.dosage }}</p>
+        <p><strong>Frequency:</strong> {{ user_medicine.frequency }}</p>
+        <p><strong>Start Date:</strong> {{ user_medicine.start_date }}</p>
+        <p><strong>End Date:</strong> {{ user_medicine.end_date }}</p>
+        <p><strong>Instructions:</strong> {{ user_medicine.instructions|default:"-" }}</p>
+        <p><strong>Expiry Date:</strong> {{ user_medicine.medicine.expiry_date }}</p>
+        <p><strong>Price:</strong> RM {{ user_medicine.medicine.price }}</p>
+    </div>
+
+    <div class="edit-button">
+        <a href="{% url 'edit_user_medicine' user_medicine.id %}">✏️ Edit</a>
+    </div>
+
+</body>
+</html>

@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate
 from django.http import HttpResponse
 from django.template import loader
@@ -61,6 +61,37 @@ def add_medicine(request):
         'med_form': med_form,
         'user_med_form': user_med_form
     })
+
+def view_user_medicine(request, pk):
+    user_medicine = get_object_or_404(UserMedicine, pk=pk)
+    return render(request, 'view_medicine.html', {'user_medicine': user_medicine})
+
+def edit_user_medicine(request, pk):
+    user_medicine = get_object_or_404(UserMedicine, pk=pk, user=request.user)
+    medicine = user_medicine.medicine
+
+    if request.method == 'POST':
+        med_form = MedicineForm(request.POST, instance=medicine)
+        user_med_form = UserMedicineForm(request.POST, instance=user_medicine)
+        
+        if med_form.is_valid() and user_med_form.is_valid():
+            med_form.save()
+            user_med_form.save()
+            return redirect('view_user_medicine', pk=user_medicine.pk)
+
+    else:
+        med_form = MedicineForm(instance=medicine)
+        user_med_form = UserMedicineForm(instance=user_medicine)
+
+    return render(request, 'edit_medicine.html', {
+        'med_form': med_form,
+        'user_med_form': user_med_form,
+    })
+
+def delete_user_medicine(request, pk):
+    user_medicine = get_object_or_404(UserMedicine, pk=pk, user=request.user)
+    user_medicine.delete()
+    return redirect('dashboard')
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
